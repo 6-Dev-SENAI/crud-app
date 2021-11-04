@@ -41,4 +41,12 @@ export default class UserService {
     oldUser = await db.updateUser(oldUser, newUser);
     return oldUser;
   }
+
+  // DELETE
+
+  async deleteUser(userId) {
+    if (userId <= 0) throw "Usuário já não está cadastrado no sistema!";
+
+    return await db.deleteUser(userId);
+  }
 }

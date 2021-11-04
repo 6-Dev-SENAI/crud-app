@@ -64,4 +64,14 @@ export default class UserDatabase {
 
     return oldUser;
   }
+
+  // DELETE
+
+  async deleteUser(userId) {
+    await usuarioTb.destroy({
+      where: { id_usuario: userId },
+    });
+
+    return null;
+  }
 }

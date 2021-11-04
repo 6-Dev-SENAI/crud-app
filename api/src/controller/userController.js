@@ -63,4 +63,20 @@ router.put("/alterar/:id", async (req, resp) => {
   }
 });
 
+router.delete("/deletar/:id", async (req, resp) => {
+  try {
+    const userId = req.params.id || 0;
+
+    let user = await srv.consultUserById(userId);
+
+    await srv.deleteUser(userId);
+
+    let userResp = utils.toResponse(user);
+
+    resp.send(userResp);
+  } catch (error) {
+    resp.send(new Error(400, error))
+  }
+})
+
 export default router;
