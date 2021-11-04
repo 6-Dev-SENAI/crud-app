@@ -51,13 +51,18 @@ router.put("/alterar/:id", async (req, resp) => {
     const newUserReq = req.body.user;
 
     let oldUser = await srv.consultUserById(userId);
-    const newUser = utils.toUpdateTable(newUserReq);
 
-    oldUser = await srv.updateUser(oldUser, newUser);
+    if (!oldUser)
+      resp.send(new Error(404, `Usuário não cadastrado no sistema.`));
+    else {
+      const newUser = utils.toUpdateTable(newUserReq);
 
-    let userResp = utils.toResponse(oldUser);
+      oldUser = await srv.updateUser(oldUser, newUser);
 
-    resp.send(userResp);
+      let userResp = utils.toResponse(oldUser);
+
+      resp.send(userResp);
+    }
   } catch (error) {
     resp.send(new Error(400, error));
   }
@@ -69,14 +74,17 @@ router.delete("/deletar/:id", async (req, resp) => {
 
     let user = await srv.consultUserById(userId);
 
-    await srv.deleteUser(userId);
+    if (!user) resp.send(new Error(404, `Usuário não cadastrado no sistema.`));
+    else {
+      await srv.deleteUser(userId);
 
-    let userResp = utils.toResponse(user);
+      let userResp = utils.toResponse(user);
 
-    resp.send(userResp);
+      resp.send(userResp);
+    }
   } catch (error) {
-    resp.send(new Error(400, error))
+    resp.send(new Error(400, error));
   }
-})
+});
 
 export default router;
