@@ -14,14 +14,16 @@ router.get("/", async (req, resp) => {
     let tableUsers = await srv.listUsers(name);
 
     if (tableUsers.length === 0)
-      resp.send(new Error(404, "Não há usuários registrado no sistema."));
+      resp
+        .status(404)
+        .send(new Error(404, "Não há usuários registrado no sistema."));
     else {
       let respUsers = utils.toResponses(tableUsers);
 
-      resp.send(respUsers);
+      resp.status(200).send(respUsers);
     }
   } catch (error) {
-    resp.send(new Error(400, error));
+    resp.status(400).send(new Error(400, error));
   }
 });
 
@@ -34,14 +36,16 @@ router.post("/cadastrar", async (req, resp) => {
     userTable = await srv.createUser(userTable);
 
     if (userTable.id_usuario <= 0)
-      resp.send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
+      resp
+        .status(404)
+        .send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
     else {
       let userResp = utils.toResponse(userTable);
 
-      resp.send(userResp);
+      resp.status(200).send(userResp);
     }
   } catch (error) {
-    resp.send(new Error(400, error));
+    resp.status(400).send(new Error(400, error));
   }
 });
 
@@ -53,7 +57,9 @@ router.put("/alterar/:id", async (req, resp) => {
     let oldUser = await srv.consultUserById(userId);
 
     if (!oldUser)
-      resp.send(new Error(404, `Usuário não cadastrado no sistema.`));
+      resp
+        .status(404)
+        .send(new Error(404, `Usuário não cadastrado no sistema.`));
     else {
       const newUser = utils.toUpdateTable(newUserReq);
 
@@ -61,10 +67,10 @@ router.put("/alterar/:id", async (req, resp) => {
 
       let userResp = utils.toResponse(oldUser);
 
-      resp.send(userResp);
+      resp.status(200).send(userResp);
     }
   } catch (error) {
-    resp.send(new Error(400, error));
+    resp.status(400).send(new Error(400, error));
   }
 });
 
@@ -74,16 +80,19 @@ router.delete("/deletar/:id", async (req, resp) => {
 
     let user = await srv.consultUserById(userId);
 
-    if (!user) resp.send(new Error(404, `Usuário não cadastrado no sistema.`));
+    if (!user)
+      resp
+        .status(404)
+        .send(new Error(404, `Usuário não cadastrado no sistema.`));
     else {
       await srv.deleteUser(userId);
 
       let userResp = utils.toResponse(user);
 
-      resp.send(userResp);
+      resp.status(200).send(userResp);
     }
   } catch (error) {
-    resp.send(new Error(400, error));
+    resp.status(400).send(new Error(400, error));
   }
 });
 
