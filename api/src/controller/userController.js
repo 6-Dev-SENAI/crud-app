@@ -32,16 +32,35 @@ router.post("/cadastrar", async (req, resp) => {
     let userTable = utils.toTable(userReq);
 
     userTable = await srv.createUser(userTable);
-    
-    if (userTable.id_usuario <= 0) resp.send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
+
+    if (userTable.id_usuario <= 0)
+      resp.send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
     else {
       let userResp = utils.toResponse(userTable);
 
       resp.send(userResp);
     }
   } catch (error) {
-    resp.send(new Error(400, error))
+    resp.send(new Error(400, error));
   }
-})
+});
+
+router.put("/alterar/:id", async (req, resp) => {
+  try {
+    const userId = req.params.id || 0;
+    const newUserReq = req.body.user;
+
+    let oldUser = await srv.consultUserById(userId);
+    const newUser = utils.toUpdateTable(newUserReq);
+
+    oldUser = await srv.updateUser(oldUser, newUser);
+
+    let userResp = utils.toResponse(oldUser);
+
+    resp.send(userResp);
+  } catch (error) {
+    resp.send(new Error(400, error));
+  }
+});
 
 export default router;

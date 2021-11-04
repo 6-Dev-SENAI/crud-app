@@ -21,8 +21,17 @@ export default class UserUtils {
       id_usuario: 0,
       nm_usuario: userReq.name || "",
       nr_idade: userReq.age || 0,
-      ds_sexo: userReq.sex || ""
-    }
+      ds_sexo: userReq.sex || "",
+    };
+    return userTable;
+  }
+
+  toUpdateTable(userReq) {
+    const userTable = {
+      nm_usuario: userReq.name || "",
+      nr_idade: userReq.age || 0,
+      ds_sexo: userReq.sex || "",
+    };
     return userTable;
   }
 }
