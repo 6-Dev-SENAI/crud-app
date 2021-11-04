@@ -7,9 +7,9 @@ function startServer() {
   const server = express();
   setRoutes(express, server);
 
-  const PORT = process.env.PORT;
+  const PORT = process.env.PORT || 5000;
   server.listen(PORT, () =>
-    console.log(`API iniciada em http://localhost:${PORT}`)
+    console.log(`API iniciada em http://localhost:${PORT}/usuario`)
   );
 }
 

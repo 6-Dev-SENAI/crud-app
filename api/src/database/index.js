@@ -8,6 +8,7 @@ const sequelize = new Sequelize("crud_db", "root", "Apolonio@01", {
 });
 
 let db;
+
 class Database {
   async connect(logging) {
     try {

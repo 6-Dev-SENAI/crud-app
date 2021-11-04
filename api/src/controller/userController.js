@@ -15,13 +15,33 @@ router.get("/", async (req, resp) => {
 
     if (tableUsers.length === 0)
       resp.send(new Error(404, "Não há usuários registrado no sistema."));
+    else {
+      let respUsers = utils.toResponses(tableUsers);
 
-    let respUsers = utils.toResponses(tableUsers);
-
-    resp.send(respUsers);
+      resp.send(respUsers);
+    }
   } catch (error) {
     resp.send(new Error(400, error));
   }
 });
+
+router.post("/cadastrar", async (req, resp) => {
+  try {
+    const userReq = req.body.user;
+
+    let userTable = utils.toTable(userReq);
+
+    userTable = await srv.createUser(userTable);
+    
+    if (userTable.id_usuario <= 0) resp.send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
+    else {
+      let userResp = utils.toResponse(userTable);
+
+      resp.send(userResp);
+    }
+  } catch (error) {
+    resp.send(new Error(400, error))
+  }
+})
 
 export default router;

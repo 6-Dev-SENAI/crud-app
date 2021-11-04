@@ -7,6 +7,8 @@ const { Op } = _sequelize;
 const { usuarioTb } = await db.getDB(false);
 
 export default class UserDatabase {
+  // GET
+  
   async listUsers() {
     const resp = (await usuarioTb.findAll()).map((user) => user.dataValues);
     return resp;
@@ -26,5 +28,12 @@ export default class UserDatabase {
     );
 
     return resp;
+  }
+
+  // POST
+
+  async createUser(user) {
+    user = await usuarioTb.create(user);
+    return user;
   }
 }

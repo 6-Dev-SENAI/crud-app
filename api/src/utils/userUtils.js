@@ -15,4 +15,14 @@ export default class UserUtils {
     );
     return user;
   }
+
+  toTable(userReq) {
+    const userTable = {
+      id_usuario: 0,
+      nm_usuario: userReq.name || "",
+      nr_idade: userReq.age || 0,
+      ds_sexo: userReq.sex || ""
+    }
+    return userTable;
+  }
 }
