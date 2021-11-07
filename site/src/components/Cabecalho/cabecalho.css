@@ -1,0 +1,17 @@
+@font-face {
+    font-family: Osvaldo;
+    src: url(../../Assets/Fonts/Oswald-VariableFont_wght.ttf);
+}
+
+
+header{
+    background-color: rgb(165, 165, 165);
+}
+
+.titulo{
+   
+    font-family: Osvaldo;
+    font-weight: bold;
+    font-size:xx-large;
+}
+    
