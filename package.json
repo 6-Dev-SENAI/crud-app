@@ -1,0 +1,23 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "site/index.js",
+  "scripts": {
+    "dev": "cd api && npm run deps && cd ../site && npm run deps && cd ../ && npm start",
+    "start": "cd api && pm2 --name API start npm -- start && cd ../site && pm2 --name SITE start npm -- start && cd ../",
+    "stop": "pm2 delete API && pm2 delete SITE",
+    "view": "pm2 ps",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6-Dev-SENAI/crud-app.git"
+  },
+  "author": "Six-Dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6-Dev-SENAI/crud-app/issues"
+  },
+  "homepage": "https://github.com/6-Dev-SENAI/crud-app#readme"
+}
