@@ -41,6 +41,9 @@ $ cd crud-app
 # Caso queira editar algum código, abra o VsCode com
 $ code .
 
+# entre na pasta do site
+$ cd site
+
 # nosso site tem um sistema para que instale as dependências direto e já inicie o projeto:
 /crud-app/site/$ npm run deps
 
