@@ -1,6 +1,6 @@
 <center>
 
-# ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) | Primeiro CRUD Full-Stack em MERN (MySQL, ExpressJs, ReactJs, NodeJs) | ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) 	![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+# ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) | Primeiro CRUD Full-Stack em MERN (MySQL, ExpressJs, ReactJs, NodeJs) | ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
 ## &#128421; Concluído &#128640;
 
@@ -25,7 +25,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 #### Rodando o projeto
 
-Antes de iniciar, é preciso que você tenha um banco de dados MySQL local com o nome *crud_db* com a tabela usuario_tb, segue script: 
+Antes de iniciar, é preciso que você tenha um banco de dados MySQL local com o nome _crud_db_ com a tabela usuario_tb, segue script:
 
 ```mysql
 -- drop database crud_db;
@@ -75,6 +75,7 @@ Entre no arquivo _API/database/index.js_ e altere seu conteúdo nas linhas:
 07  logging: false,
 08 });
 ```
+
 Assim que alterar o arquivo, siga as intruções:
 
 ```bash
@@ -96,6 +97,7 @@ E o SITE iniciará na porta 3000, assim como na API, caso queira alterar entre n
 ```bash
 /crud-app/$ npm start
 ```
+
 E desfrute de nosso projeto, sem moderação! ;)
 
 ---
@@ -104,20 +106,20 @@ E desfrute de nosso projeto, sem moderação! ;)
 
 | Tecnologia        | [![Generic badge](https://img.shields.io/badge/Badges--lime.svg)](####recursos)                                                                                                         |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Front | Site |
+| Front             | Site                                                                                                                                                                                    |
 | JavaScript        | [![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) |
 | Boostrap          | [![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)                                      |
-| NPM          | [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)                                      |
+| NPM               | [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)                                                           |
 | ReactJs           | [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://pt-br.reactjs.org/)                                             |
-| React Router Dom           | [![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://www.npmjs.com/package/react-router-dom)                                             |
+| React Router Dom  | [![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://www.npmjs.com/package/react-router-dom)               |
 | Styled Components | [![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/)               |
 | HTML5             | [![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/pt-BR/docs/Web/HTML)                          |
 | CSS3              | [![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/pt-BR/docs/Web/CSS)                              |
-| Back | API |
-| ExpressJs              | [![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com/pt-br/)                              |
-| MySQL              | [![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)                              |
-| NodeJs              | [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/)                              |
-| Sequelize              | [![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)](https://sequelize.org/)                              |
+| Back              | API                                                                                                                                                                                     |
+| ExpressJs         | [![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com/pt-br/)                               |
+| MySQL             | [![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)                                                        |
+| NodeJs            | [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/)                                                       |
+| Sequelize         | [![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)](https://sequelize.org/)                                                |
 
 ---
 
