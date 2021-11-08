@@ -2,10 +2,20 @@ import React from "react";
 import Botoes from "../botoes/index";
 import "../ConteudoForms/conteudo.css";
 
-const ConteudoPagina = () => {
+const ConteudoPagina = (props) => {
+  const {
+    saveFunc,
+    cancelFunc,
+    name: { name, setName },
+    age: { age, setAge },
+    sex: { sex, setSex },
+    disable,
+    label,
+  } = props;
+
   return (
     <div className="container-fluid container-geral">
-      <form id="formulario" class="w-50 mx-auto h-300">
+      <div id="formulario" class="w-50 mx-auto h-300">
         <div className="Caixas-Texto d-flex p-2 bd-highlight flex-column">
           <div class="input-group mb-3">
             <input
@@ -13,6 +23,9 @@ const ConteudoPagina = () => {
               name="nome"
               class="form-control"
               placeholder=" Insira o nome do novo usuário:"
+              value={name}
+              disabled={disable}
+              onChange={(event) => setName(event.target.value)}
             />
           </div>
 
@@ -22,6 +35,11 @@ const ConteudoPagina = () => {
               class="form-control"
               name="idade"
               placeholder="Idade:"
+              min={0}
+              max={120}
+              value={age}
+              disabled={disable}
+              onChange={(event) => setAge(event.target.value)}
             />
           </div>
         </div>
@@ -33,6 +51,11 @@ const ConteudoPagina = () => {
               type="radio"
               name="flexRadioDefault"
               id="flexRadioDefault1"
+              onChange={(event) => {
+                event.target.checked ? setSex("M") : setSex("F");
+              }}
+              disabled={disable}
+              checked={sex === "M" ? true : false}
             ></input>
             <label class="form-check-label mx-1" for="flexRadioDefault1">
               Masulino
@@ -44,15 +67,19 @@ const ConteudoPagina = () => {
               type="radio"
               name="flexRadioDefault"
               id="flexRadioDefault2"
-              checked
+              onChange={(event) => {
+                event.target.checked ? setSex("F") : setSex("M");
+              }}
+              disabled={disable}
+              checked={sex === "F" ? true : false}
             ></input>
             <label class="form-check-label mx-1" for="flexRadioDefault2">
               Feminino
             </label>
           </div>
         </div>
-        <Botoes/>
-      </form>
+        <Botoes save={saveFunc} cancel={cancelFunc} label={label} />
+      </div>
     </div>
   );
 };

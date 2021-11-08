@@ -1,7 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./centro.css";
 
-const Conteudo = () => {
+const Conteudo = (props) => {
+  const { users } = props;
+
   return (
     <div className="geralTabela">
       <table className="table table-dark  flex-column">
@@ -15,53 +18,31 @@ const Conteudo = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">#</th>
-            <td>x</td>
-            <td>x</td>
-            <td>x</td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                Alterar
-              </button>{" "}
-              |{" "}
-              <button type="button" class="btn btn-danger">
-                Deletar
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">#</th>
-            <td>x</td>
-            <td>x</td>
-            <td>x</td>
-            <td>
-              {" "}
-              <button type="button" class="btn btn-primary">
-                Alterar
-              </button>{" "}
-              |{" "}
-              <button type="button" class="btn btn-danger">
-                Deletar
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">#</th>
-            <td>x</td>
-            <td>x</td>
-            <td>x</td>
-            <td>
-              {" "}
-              <button type="button" class="btn btn-primary">
-                Alterar
-              </button>{" "}
-              |{" "}
-              <button type="button" class="btn btn-danger">
-                Deletar
-              </button>
-            </td>
-          </tr>
+          {users.map((user, index) => (
+            <tr key={index}>
+              <td># {user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.age}</td>
+              <td>{user.sex === "M" ? "Masculino" : "Feminino"}</td>
+              <td>
+                <Link
+                  to={`/alterar/${user.id}`}
+                  state={user}
+                  class="btn btn-primary"
+                >
+                  Alterar
+                </Link>{" "}
+                |{" "}
+                <Link
+                  to={`/deletar/${user.id}`}
+                  state={user}
+                  class="btn btn-danger"
+                >
+                  Deletar
+                </Link>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

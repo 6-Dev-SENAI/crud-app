@@ -1,32 +1,38 @@
 import React, { useState } from "react";
 import Cabecalho from "../../components/Cabecalho";
 import ConteudoForms from "../../components/ConteudoForms/conteudo";
-import Rodape from "../../components/Rodape/index";
+import Rodape from "../../components/Rodape";
 import "../Home/home.css";
-import "../Alterar/alterar.css";
+import "./alterar.css";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
-import Service from "../../service/userService.js";
+import Service from "../../service/userService";
 const api = new Service();
 
-const Cadastrar = () => {
+const PgAlterar = () => {
+  const location = useLocation();
+  const user = location.state;
+
+  const params = useParams();
+  const userId = params.id;
+
   const navigation = useNavigate();
 
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-  const [sex, setSex] = useState("");
+  const [name, setName] = useState(user.name);
+  const [age, setAge] = useState(user.age);
+  const [sex, setSex] = useState(user.sex);
 
-  const createUser = async () => {
+  const updateUser = async () => {
     try {
       const user = {
         name,
         age,
         sex,
       };
-      const resp = await api.createUser(user);
+      const resp = await api.alterUser(userId, user);
       navigation("/");
-      toast.success("Usuário cadastrado com sucesso!");
+      toast.success("Usuário alterado com sucesso!")
       return resp;
     } catch (error) {
       let err;
@@ -46,20 +52,22 @@ const Cadastrar = () => {
     <div>
       <Cabecalho>
         <p className="titulo text-uppercase">
-          <ins>Cadastrar</ins>
+          <ins>Alterar</ins>
         </p>
       </Cabecalho>
+
       <div className="posicaoAlt">
         <ConteudoForms
-          saveFunc={createUser}
+          saveFunc={updateUser}
           cancelFunc={cancel}
           name={{ name, setName }}
           age={{ age, setAge }}
           sex={{ sex, setSex }}
           disable={false}
-          label={"Salvar"}
+          label={"Salvar alterações"}
         />
       </div>
+
       <div className="fotfot fixed-bottom">
         <Rodape />
       </div>
@@ -67,4 +75,4 @@ const Cadastrar = () => {
   );
 };
 
-export default Cadastrar;
+export default PgAlterar;
