@@ -10,7 +10,7 @@ export default function Cadastrar() {
 
         <div class="container">
 
-            <form id="formulario">
+            <form id="formulario" class="rounded">
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Nome</label>
                     <div class="col-sm-10">

@@ -6,7 +6,7 @@ import './index.css';
 export default function Botoes() {
     return (
         <div class="container  ">
-            <div class="row align-items-end">
+            <div class="row align-items-end ">
 
                 <div class="btn-toolbar  col-sm" role="toolbar" aria-label="Toolbar with button groups">
                     <div class=".btn-group-* " role="group" aria-label="First group">
