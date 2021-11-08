@@ -6,8 +6,8 @@ export default function Home() {
     return (
         <div>
            {/*  <Alterar></Alterar> */}
-            {/* {<Cadastrar></Cadastrar>} */}
-            <Apagar></Apagar>
+            {<Cadastrar></Cadastrar>}
+            {/* <Apagar></Apagar> */}
         </div>
     )
 }
