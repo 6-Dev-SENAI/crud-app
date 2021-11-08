@@ -1,11 +1,8 @@
-.posicaoAlt{
-    min-height: 81.5vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: rgb(58, 58, 58);
-    color: #ffffff;
-  
+.posicaoAlt {
+  min-height: 81.5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(58, 58, 58);
+  color: #ffffff;
 }
-
-

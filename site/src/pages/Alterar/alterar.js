@@ -32,7 +32,7 @@ const PgAlterar = () => {
       };
       const resp = await api.alterUser(userId, user);
       navigation("/");
-      toast.success("Usuário alterado com sucesso!")
+      toast.success("Usuário alterado com sucesso!");
       return resp;
     } catch (error) {
       let err;

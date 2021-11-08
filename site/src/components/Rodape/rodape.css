@@ -1,15 +1,10 @@
-
-.footer{
-    background-color: rgb(165, 165, 165);
-    
-    
+.footer {
+  background-color: rgb(165, 165, 165);
 }
 
-.barrafooter{
-    font-weight: bold;
-    font-family: Osvaldo;
-    letter-spacing: 0.2em;
-    font-size: 1.5;
-    
+.barrafooter {
+  font-weight: bold;
+  font-family: Osvaldo;
+  letter-spacing: 0.2em;
+  font-size: 1.5;
 }
-

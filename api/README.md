@@ -27,7 +27,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 #### Rodando a API
 
-Antes de iniciar, é preciso que você tenha um banco de dados MySQL local com o nome *crud_db* com a tabela usuario_tb, segue script:
+Antes de iniciar, é preciso que você tenha um banco de dados MySQL local com o nome _crud_db_ com a tabela usuario_tb, segue script:
 
 ```mysql
 -- drop database crud_db;
