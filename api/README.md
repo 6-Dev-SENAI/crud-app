@@ -2,7 +2,7 @@
 
 # ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
-# | Primeiro CRUD Full-Stack em MERN (MySQL, ExpressJs, ReactJs, NodeJs) |
+# | Primeiro CRUD Full-Stack em MERN (MySQL, ExpressJs, ReactJs, NodeJs) -- BACK |
 
 ## &#128421; Concluído &#128640;
 
@@ -12,7 +12,7 @@
 
 ## Sobre | Back
 
-Back desenvolvido com na stack JavaScript para Full-Stack, fazendo um CRUD num banco de dados local através da conexão com Sequelize e iniciando server em Express!
+Back desenvolvido na stack JavaScript para Full-Stack, fazendo um CRUD num banco de dados local através da conexão com Sequelize e iniciando server em Express!
 
 ![Languages](https://img.shields.io/github/languages/count/6-Dev-SENAI/crud-app?color=%2304D361) ![Repo_Size](https://img.shields.io/github/repo-size/6-Dev-SENAI/crud-app) ![Last_Commit](https://img.shields.io/github/last-commit/6-Dev-SENAI/crud-app)
 
@@ -86,12 +86,12 @@ Assim que alterar o arquivo, siga as intruções:
 # Agora basta esperar a instalação das dependências serem feitas e aproveitar a nossa API!
 ```
 
-A API rodando na porta 5000, caso queira alterar, vá no arquivo _API/package.json_ e na linha **08** mude o '5000' para a porta que desejar!
+A API rodará na porta 5000, caso queira alterar, vá no arquivo _API/package.json_ e na linha **08** mude o '5000' para a porta que desejar!
 
 > Uma vez que as dependências já estão instaladas, não rode o 'NPM RUN DEPS' novamente, utilize diretamente o NPM START
 
 ```bash
-/crud-app/$ npm start
+/crud-app/api/$ npm start
 ```
 
 E desfrute de nossa API, sem moderação! ;)

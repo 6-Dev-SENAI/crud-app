@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deps": "npm i --save && echo 'Todas as dependências do site instaladas com sucesso.'"
+    "deps": "npm i --save && echo 'Todas as dependências do site instaladas com sucesso.' && npm start"
   },
   "eslintConfig": {
     "extends": [
