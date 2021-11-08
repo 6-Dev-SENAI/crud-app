@@ -3,6 +3,8 @@ import Cabecalho from "../../components/Cabecalho";
 import Rodape from "../../components/Rodape";
 import "../Home/home.css";
 import Conteudo from "../../components/Centro/centro";
+
+
 const Home = () => {
   return (
     <div className="container-home">
