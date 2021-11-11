@@ -20,6 +20,6 @@ function stopServer(error) {
 }
 
 database
-  .connect(true)
+  .connect()
   .then(startServer)
   .catch((error) => stopServer(error));

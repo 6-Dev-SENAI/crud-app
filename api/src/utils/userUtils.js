@@ -8,20 +8,22 @@ export default class UserUtils {
 
   toResponse(tableUser) {
     const user = new UserResponse(
-      tableUser.id_usuario,
+      tableUser._id,
       tableUser.nm_usuario,
       tableUser.nr_idade,
-      tableUser.ds_sexo
+      tableUser.ds_sexo,
+      tableUser.ds_login
     );
     return user;
   }
 
   toTable(userReq) {
     const userTable = {
-      id_usuario: 0,
       nm_usuario: userReq.name || "",
       nr_idade: userReq.age || 0,
       ds_sexo: userReq.sex || "",
+      ds_login: userReq.email || "",
+      ds_senha: userReq.password || "",
     };
     return userTable;
   }
@@ -31,6 +33,8 @@ export default class UserUtils {
       nm_usuario: userReq.name || "",
       nr_idade: userReq.age || 0,
       ds_sexo: userReq.sex || "",
+      ds_login: userReq.email || "",
+      ds_senha: userReq.password || "",
     };
     return userTable;
   }

@@ -21,10 +21,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mysql2": "^2.3.2",
+    "mongoose": "^6.0.12",
     "nodemon": "^2.0.14",
-    "pm2": "^5.1.2",
-    "sequelize": "^6.9.0"
+    "pm2": "^5.1.2"
   },
   "type": "module"
 }

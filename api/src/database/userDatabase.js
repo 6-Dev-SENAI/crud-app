@@ -1,45 +1,23 @@
-import Database from "./index.js";
-const db = new Database();
-
-import _sequelize from "sequelize";
-const { Op } = _sequelize;
-
-const { usuarioTb } = await db.getDB(false);
+import Usuario from "../models/userModel.js";
 
 export default class UserDatabase {
   // GET
 
   async listUsers() {
-    const resp = (await usuarioTb.findAll()).map((user) => user.dataValues);
+    const resp = await Usuario.find().exec();
     return resp;
   }
 
   async listUsersWithName(name) {
-    const options = {
-      where: {
-        nm_usuario: {
-          [Op.substring]: `%${name}%`,
-        },
-      },
-    };
+    const options = { nm_usuario: { $regex: name, $options: "i" } };
 
-    const resp = (await usuarioTb.findAll(options)).map(
-      (user) => user.dataValues
-    );
+    const resp = await Usuario.find(options);
 
     return resp;
   }
 
   async consultUserById(userId) {
-    const options = {
-      where: {
-        id_usuario: userId,
-      },
-    };
-
-    const users = await usuarioTb.findAll(options);
-
-    const user = users[0];
+    const user = await Usuario.findById(userId);
 
     return user;
   }
@@ -47,31 +25,26 @@ export default class UserDatabase {
   // POST
 
   async createUser(user) {
-    user = await usuarioTb.create(user);
+    user = await Usuario.create(user);
     return user;
   }
 
   // PUT
 
   async updateUser(oldUser, newUser) {
-    await usuarioTb.update(newUser, {
-      where: { id_usuario: oldUser.id_usuario },
-    });
+    const resp = await Usuario.replaceOne({ _id: oldUser._id }, newUser);
 
-    oldUser.nm_usuario = newUser.nm_usuario;
-    oldUser.nr_idade = newUser.nr_idade;
-    oldUser.ds_sexo = newUser.ds_sexo;
-
-    return oldUser;
+    return {
+      retorno: resp,
+      oldUser,
+    };
   }
 
   // DELETE
 
   async deleteUser(userId) {
-    await usuarioTb.destroy({
-      where: { id_usuario: userId },
-    });
+    const resp = await Usuario.deleteOne({ _id: userId });
 
-    return null;
+    return resp;
   }
 }

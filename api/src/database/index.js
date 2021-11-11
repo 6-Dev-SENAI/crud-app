@@ -1,27 +1,17 @@
-import authenticateDB from "../models/_initModels.js";
-import { Sequelize } from "sequelize";
+import mongoose from "mongoose";
 
-const sequelize = new Sequelize("crud_db", "root", "Apolonio@01", {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false,
-});
-
-let db;
+const MONGO_URI =
+  "mongodb+srv://devmonkdb:d3vm0nk@cluster0.jghqd.mongodb.net/crud_db";
 
 class Database {
-  async connect(logging) {
-    try {
-      db = await authenticateDB(sequelize, logging);
-      return db;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getDB(logging) {
-    const resp = await this.connect(logging);
-    return resp;
+  async connect() {
+    console.log("Tentando acessar o banco de dados...");
+    await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Banco de Dados acessado com sucesso!");
+    return true;
   }
 }
 

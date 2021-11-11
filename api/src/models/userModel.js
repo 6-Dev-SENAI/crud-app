@@ -1,35 +1,11 @@
-import _sequelize from "sequelize";
-const { Model } = _sequelize;
+import mongoose from "mongoose";
 
-export default class usuarioTb extends Model {
-  static init(sequelize, DataTypes) {
-    super.init(
-      {
-        id_usuario: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
-        },
-        nm_usuario: {
-          type: DataTypes.STRING(100),
-          allowNull: false,
-        },
-        nr_idade: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-        },
-        ds_sexo: {
-          type: DataTypes.CHAR,
-          allowNull: false,
-        },
-      },
-      {
-        sequelize,
-        tableName: "usuario_tb",
-        timestamps: false,
-      }
-    );
-    return usuarioTb;
-  }
-}
+const usuarioSchema = new mongoose.Schema({
+  nm_usuario: { type: String },
+  nr_idade: { type: Number },
+  ds_sexo: { type: String },
+  ds_login: { type: String },
+  ds_senha: { type: String },
+});
+
+export default mongoose.model("usuario", usuarioSchema);

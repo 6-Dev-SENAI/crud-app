@@ -1,4 +1,5 @@
 import { Router } from "express";
+import mongoose from "mongoose";
 import UserService from "../service/userService.js";
 import UserUtils from "../utils/userUtils.js";
 import Error from "../models/res/errorModel.js";
@@ -29,13 +30,13 @@ router.get("/", async (req, resp) => {
 
 router.post("/cadastrar", async (req, resp) => {
   try {
-    const userReq = req.body.user;
+    const userReq = req.body;
 
     let userTable = utils.toTable(userReq);
 
     userTable = await srv.createUser(userTable);
 
-    if (userTable.id_usuario <= 0)
+    if (!user || !mongoose.isValidObjectId(userTable._id))
       resp
         .status(404)
         .send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
@@ -51,12 +52,12 @@ router.post("/cadastrar", async (req, resp) => {
 
 router.put("/alterar/:id", async (req, resp) => {
   try {
-    const userId = req.params.id || 0;
-    const newUserReq = req.body.user;
+    const userId = req.params.id || "";
+    const newUserReq = req.body;
 
     let oldUser = await srv.consultUserById(userId);
 
-    if (!oldUser)
+    if (!user || !mongoose.isValidObjectId(oldUser._id))
       resp
         .status(404)
         .send(new Error(404, `Usuário não cadastrado no sistema.`));
@@ -76,11 +77,11 @@ router.put("/alterar/:id", async (req, resp) => {
 
 router.delete("/deletar/:id", async (req, resp) => {
   try {
-    const userId = req.params.id || 0;
+    const userId = req.params.id || "";
 
     let user = await srv.consultUserById(userId);
 
-    if (!user)
+    if (!user || !mongoose.isValidObjectId(user._id))
       resp
         .status(404)
         .send(new Error(404, `Usuário não cadastrado no sistema.`));
