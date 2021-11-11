@@ -24,9 +24,14 @@ router.get("/", tokenVerify, async (req, resp) => {
         .status(404)
         .send(new Error(404, "Não há usuários registrado no sistema."));
     else {
-      let respUsers = utils.toResponses(tableUsers, req.body.token);
+      let respUsers = utils.toResponses(tableUsers);
 
-      resp.status(200).send(respUsers);
+      const res = {
+        token: req.body.token,
+        users: respUsers,
+      };
+
+      resp.status(200).send(res);
     }
   } catch (error) {
     resp.status(400).send(new Error(400, error));
@@ -46,9 +51,14 @@ router.post("/cadastrar", tokenVerify, async (req, resp) => {
         .status(404)
         .send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
     else {
-      let userResp = utils.toResponse(userTable, req.body.token);
+      let userResp = utils.toResponse(userTable);
 
-      resp.status(200).send(userResp);
+      const res = {
+        token: req.body.token,
+        user: userResp,
+      };
+
+      resp.status(200).send(res);
     }
   } catch (error) {
     resp.status(400).send(new Error(400, error));
@@ -71,9 +81,14 @@ router.put("/alterar/:id", tokenVerify, async (req, resp) => {
 
       oldUser = await srv.updateUser(oldUser, newUser);
 
-      let userResp = utils.toResponse(oldUser, req.body.token);
+      let userResp = utils.toResponse(oldUser);
 
-      resp.status(200).send(userResp);
+      const res = {
+        token: req.body.token,
+        user: userResp,
+      };
+
+      resp.status(200).send(res);
     }
   } catch (error) {
     resp.status(400).send(new Error(400, error));
@@ -93,9 +108,14 @@ router.delete("/deletar/:id", tokenVerify, async (req, resp) => {
     else {
       await srv.deleteUser(userId);
 
-      let userResp = utils.toResponse(user, req.body.token);
+      let userResp = utils.toResponse(user);
 
-      resp.status(200).send(userResp);
+      const res = {
+        token: req.body.token,
+        user: userResp,
+      };
+
+      resp.status(200).send(res);
     }
   } catch (error) {
     resp.status(400).send(new Error(400, error));
@@ -112,17 +132,18 @@ router.post("/login", async (req, resp) => {
     if (!user || !mongoose.isValidObjectId(user._id))
       resp.status(404).send(new Error(404, "Email ou senha incorretos."));
     else {
-      const token = jwt.sign(
-        { user_id: user._id, password },
-        process.env.TOKEN,
-        {
-          expiresIn: 120,
-        }
-      );
+      const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN, {
+        expiresIn: 120,
+      });
 
-      let userResp = utils.toResponse(user, token);
+      let userResp = utils.toResponse(user);
 
-      resp.status(200).send(userResp);
+      const res = {
+        token,
+        user: userResp,
+      };
+
+      resp.status(200).send(res);
     }
   } catch (error) {
     resp.status(400).send(new Error(400, error));
