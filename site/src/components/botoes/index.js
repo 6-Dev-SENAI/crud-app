@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 
 export default function Botoes(props) {
-  const { save, cancel, label,} = props;
+  const { save, cancel, label } = props;
 
   return (
     <div className="posicao justify-content-between">
