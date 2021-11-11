@@ -1,19 +1,22 @@
 import UserResponse from "../models/res/userResponse.js";
 
 export default class UserUtils {
-  toResponses(tableUsers) {
-    let users = tableUsers.map((tableUser) => this.toResponse(tableUser));
+  toResponses(tableUsers, token) {
+    let users = tableUsers.map((tableUser) =>
+      this.toResponse(tableUser, token)
+    );
     return users;
   }
 
-  toResponse(tableUser) {
+  toResponse(tableUser, token) {
     const user = new UserResponse(
       tableUser._id,
       tableUser.nm_usuario,
       tableUser.nr_idade,
       tableUser.ds_sexo,
       tableUser.ds_login,
-      tableUser.ds_senha
+      tableUser.ds_senha,
+      token
     );
     return user;
   }

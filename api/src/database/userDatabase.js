@@ -47,4 +47,17 @@ export default class UserDatabase {
 
     return resp;
   }
+
+  // LOGIN
+
+  async login(email, password) {
+    const options = {
+      ds_login: email,
+      ds_senha: password,
+    };
+
+    const resp = await Usuario.findOne(options);
+
+    return resp;
+  }
 }

@@ -1,8 +1,12 @@
 import { Router } from "express";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
 import UserService from "../service/userService.js";
 import UserUtils from "../utils/userUtils.js";
 import Error from "../models/res/errorModel.js";
+
+dotenv.config();
 
 const router = Router();
 const srv = new UserService();
@@ -19,7 +23,7 @@ router.get("/", async (req, resp) => {
         .status(404)
         .send(new Error(404, "Não há usuários registrado no sistema."));
     else {
-      let respUsers = utils.toResponses(tableUsers);
+      let respUsers = utils.toResponses(tableUsers, "");
 
       resp.status(200).send(respUsers);
     }
@@ -41,7 +45,7 @@ router.post("/cadastrar", async (req, resp) => {
         .status(404)
         .send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
     else {
-      let userResp = utils.toResponse(userTable);
+      let userResp = utils.toResponse(userTable, "");
 
       resp.status(200).send(userResp);
     }
@@ -66,7 +70,7 @@ router.put("/alterar/:id", async (req, resp) => {
 
       oldUser = await srv.updateUser(oldUser, newUser);
 
-      let userResp = utils.toResponse(oldUser);
+      let userResp = utils.toResponse(oldUser, "");
 
       resp.status(200).send(userResp);
     }
@@ -88,11 +92,39 @@ router.delete("/deletar/:id", async (req, resp) => {
     else {
       await srv.deleteUser(userId);
 
-      let userResp = utils.toResponse(user);
+      let userResp = utils.toResponse(user, "");
 
       resp.status(200).send(userResp);
     }
   } catch (error) {
+    resp.status(400).send(new Error(400, error));
+  }
+});
+
+router.post("/login", async (req, resp) => {
+  try {
+    const email = req.body.email || "";
+    const password = req.body.password || "";
+
+    const user = await srv.login(email, password);
+
+    if (!user || !mongoose.isValidObjectId(user._id))
+      resp.status(404).send(new Error(404, "Email ou senha incorretos."));
+    else {
+      const token = jwt.sign(
+        { user_id: user._id, password },
+        process.env.TOKEN,
+        {
+          expiresIn: 120,
+        }
+      );
+      
+      let userResp = utils.toResponse(user, token);
+
+      resp.status(200).send(userResp);
+    }
+  } catch (error) {
+    console.log("🚀 ~ file: userController.js ~ line 124 ~ router.post ~ error", error)
     resp.status(400).send(new Error(400, error));
   }
 });

@@ -80,4 +80,14 @@ export default class UserService {
 
     return resp;
   }
+
+  // LOGIN
+
+  async login(email, password) {
+    this.#verifyLogin(email, password);
+
+    const resp = await db.login(email, password);
+
+    return resp;
+  }
 }
