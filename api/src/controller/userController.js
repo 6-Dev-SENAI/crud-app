@@ -1,7 +1,8 @@
 import { Router } from "express";
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import tokenVerify from "../middleware/index.js";
 import UserService from "../service/userService.js";
 import UserUtils from "../utils/userUtils.js";
 import Error from "../models/res/errorModel.js";
@@ -12,7 +13,7 @@ const router = Router();
 const srv = new UserService();
 const utils = new UserUtils();
 
-router.get("/", async (req, resp) => {
+router.get("/", tokenVerify, async (req, resp) => {
   try {
     const name = req.query.name || "";
 
@@ -23,7 +24,7 @@ router.get("/", async (req, resp) => {
         .status(404)
         .send(new Error(404, "Não há usuários registrado no sistema."));
     else {
-      let respUsers = utils.toResponses(tableUsers, "");
+      let respUsers = utils.toResponses(tableUsers, req.body.token);
 
       resp.status(200).send(respUsers);
     }
@@ -32,7 +33,7 @@ router.get("/", async (req, resp) => {
   }
 });
 
-router.post("/cadastrar", async (req, resp) => {
+router.post("/cadastrar", tokenVerify, async (req, resp) => {
   try {
     const userReq = req.body;
 
@@ -45,7 +46,7 @@ router.post("/cadastrar", async (req, resp) => {
         .status(404)
         .send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
     else {
-      let userResp = utils.toResponse(userTable, "");
+      let userResp = utils.toResponse(userTable, req.body.token);
 
       resp.status(200).send(userResp);
     }
@@ -54,7 +55,7 @@ router.post("/cadastrar", async (req, resp) => {
   }
 });
 
-router.put("/alterar/:id", async (req, resp) => {
+router.put("/alterar/:id", tokenVerify, async (req, resp) => {
   try {
     const userId = req.params.id || "";
     const newUserReq = req.body;
@@ -70,7 +71,7 @@ router.put("/alterar/:id", async (req, resp) => {
 
       oldUser = await srv.updateUser(oldUser, newUser);
 
-      let userResp = utils.toResponse(oldUser, "");
+      let userResp = utils.toResponse(oldUser, req.body.token);
 
       resp.status(200).send(userResp);
     }
@@ -79,7 +80,7 @@ router.put("/alterar/:id", async (req, resp) => {
   }
 });
 
-router.delete("/deletar/:id", async (req, resp) => {
+router.delete("/deletar/:id", tokenVerify, async (req, resp) => {
   try {
     const userId = req.params.id || "";
 
@@ -92,7 +93,7 @@ router.delete("/deletar/:id", async (req, resp) => {
     else {
       await srv.deleteUser(userId);
 
-      let userResp = utils.toResponse(user, "");
+      let userResp = utils.toResponse(user, req.body.token);
 
       resp.status(200).send(userResp);
     }
@@ -118,13 +119,12 @@ router.post("/login", async (req, resp) => {
           expiresIn: 120,
         }
       );
-      
+
       let userResp = utils.toResponse(user, token);
 
       resp.status(200).send(userResp);
     }
   } catch (error) {
-    console.log("🚀 ~ file: userController.js ~ line 124 ~ router.post ~ error", error)
     resp.status(400).send(new Error(400, error));
   }
 });
