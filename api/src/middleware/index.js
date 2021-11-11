@@ -13,12 +13,12 @@ const verifyToken = (req, res, next) => {
     try {
       const decoded = jwt.verify(token, config.TOKEN);
       req.body.token = decoded;
+      return next();
     } catch (err) {
       res
         .status(401)
         .send(new Error(401, "Token inválido; por favor re-faça o login!"));
     }
-    return next();
   }
 };
 
