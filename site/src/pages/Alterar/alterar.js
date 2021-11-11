@@ -12,7 +12,8 @@ const api = new Service();
 
 const PgAlterar = () => {
   const location = useLocation();
-  const user = location.state;
+
+  const { user, token } = location.state;
 
   const params = useParams();
   const userId = params.id;
@@ -32,10 +33,10 @@ const PgAlterar = () => {
         age,
         sex,
         email,
-        password
+        password,
       };
-      const resp = await api.alterUser(userId, user);
-      navigation("/consultar");
+      const resp = await api.alterUser(userId, user, token);
+      navigation("/consultar", { state: { token } });
       toast.success("Usuário alterado com sucesso!");
       return resp;
     } catch (error) {
@@ -44,12 +45,15 @@ const PgAlterar = () => {
       else err = error.response.data;
       if (err.code === 404) toast.error(err.message);
       else if (err.code === 400) toast.warning(err.message);
-      else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
+      else if (err.code === 401) {
+        toast.warning(err.message);
+        navigation("/");
+      } else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
     }
   };
 
   const cancel = () => {
-    navigation("/consultar");
+    navigation("/consultar", { state: { token } });
   };
 
   return (

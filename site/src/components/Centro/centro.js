@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./centro.css";
 
 const Conteudo = (props) => {
-  const { users } = props;
+  const { users, token } = props;
 
   return (
     <div className="geralTabela">
@@ -29,7 +29,7 @@ const Conteudo = (props) => {
               <td>
                 <Link
                   to={`/alterar/${user.id}`}
-                  state={user}
+                  state={{ user, token }}
                   class="btn btn-primary"
                 >
                   Alterar
@@ -37,7 +37,7 @@ const Conteudo = (props) => {
                 |{" "}
                 <Link
                   to={`/deletar/${user.id}`}
-                  state={user}
+                  state={{ user, token }}
                   class="btn btn-danger"
                 >
                   Deletar

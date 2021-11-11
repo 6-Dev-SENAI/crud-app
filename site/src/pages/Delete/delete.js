@@ -13,11 +13,12 @@ import Service from "../../service/userService";
 const api = new Service();
 
 const Deletar = () => {
+  const location = useLocation();
+
   const params = useParams();
   const userId = params.id;
 
-  const location = useLocation();
-  const user = location.state;
+  const { user, token } = location.state;
 
   const navigation = useNavigate();
 
@@ -29,8 +30,8 @@ const Deletar = () => {
 
   const deleteUser = async () => {
     try {
-      const resp = await api.deleteUser(userId);
-      navigation("/consultar");
+      const resp = await api.deleteUser(userId, token);
+      navigation("/consultar", { state: { token } });
       toast.success("Usuário deletado com sucesso!");
       return resp;
     } catch (error) {
@@ -39,7 +40,10 @@ const Deletar = () => {
       else err = error.response.data;
       if (err.code === 404) toast.error(err.message);
       else if (err.code === 400) toast.warning(err.message);
-      else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
+      else if (err.code === 401) {
+        toast.warning(err.message);
+        navigation("/");
+      } else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
     }
   };
 
@@ -64,7 +68,7 @@ const Deletar = () => {
   };
 
   const cancel = () => {
-    navigation("/consultar");
+    navigation("/consultar", { state: { token } });
   };
 
   return (

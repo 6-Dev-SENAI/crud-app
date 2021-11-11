@@ -5,12 +5,15 @@ import Rodape from "../../components/Rodape/index";
 import "../Home/home.css";
 import "../Alterar/alterar.css";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Service from "../../service/userService.js";
 const api = new Service();
 
 const Cadastrar = () => {
+  const location = useLocation();
+  const { token } = location.state;
+
   const navigation = useNavigate();
 
   const [name, setName] = useState("");
@@ -26,10 +29,10 @@ const Cadastrar = () => {
         age,
         sex,
         email,
-        password
+        password,
       };
-      const resp = await api.createUser(user);
-      navigation("/consultar");
+      const resp = await api.createUser(user, token);
+      navigation("/consultar", { state: { token } });
       toast.success("Usuário cadastrado com sucesso!");
       return resp;
     } catch (error) {
@@ -38,12 +41,15 @@ const Cadastrar = () => {
       else err = error.response.data;
       if (err.code === 404) toast.error(err.message);
       else if (err.code === 400) toast.warning(err.message);
-      else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
+      else if (err.code === 401) {
+        toast.warning(err.message);
+        navigation("/");
+      } else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
     }
   };
 
   const cancel = () => {
-    navigation("/consultar");
+    navigation("/consultar", { state: { token } });
   };
 
   return (

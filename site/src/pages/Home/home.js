@@ -5,18 +5,24 @@ import "../Home/home.css";
 import Conteudo from "../../components/Centro/centro";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import Service from "../../service/userService.js";
 const api = new Service();
 
 const Home = () => {
+  const location = useLocation();
+  const { token } = location.state;
+  const navigation = useNavigate();
+
   const [name, setName] = useState("");
 
   const [users, setUsers] = useState([]);
 
   const loadInfo = useCallback(async () => {
     try {
-      const resp = await api.listUsers(name);
-      setUsers([...resp]);
+      const resp = await api.listUsers(name, token);
+      const { users } = resp;
+      setUsers([...users]);
     } catch (error) {
       setUsers([]);
       let err;
@@ -24,9 +30,12 @@ const Home = () => {
       else err = error.response.data;
       if (err.code === 404) toast.error(err.message);
       else if (err.code === 400) toast.warning(err.message);
-      else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
+      else if (err.code === 401) {
+        toast.warning(err.message);
+        navigation("/");
+      } else toast.warning("Ocorreu um erro desconhecido, tente novamente.");
     }
-  }, [name]);
+  }, [name, navigation, token]);
 
   useEffect(() => {
     loadInfo();
@@ -46,14 +55,18 @@ const Home = () => {
             onChange={(event) => setName(event.target.value)}
           />
           <div class="input-group-append">
-            <Link to="/cadastrar" class="btn btn-outline-warning .text-dark">
+            <Link
+              to="/cadastrar"
+              state={{ token }}
+              class="btn btn-outline-warning .text-dark"
+            >
               Cadastrar Usuário
             </Link>
           </div>
         </div>
       </Cabecalho>
 
-      <Conteudo users={users} />
+      <Conteudo users={users} token={token} />
 
       <div className="fotfot fixed-bottom">
         <Rodape />
