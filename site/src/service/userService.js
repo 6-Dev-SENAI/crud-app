@@ -11,12 +11,12 @@ export default class Service {
   }
 
   async createUser(user) {
-    const resp = await api.post("/cadastrar", { user: user });
+    const resp = await api.post("/cadastrar", user);
     return resp.data;
   }
 
   async alterUser(userId, newUser) {
-    const resp = await api.put(`/alterar/${userId}`, { user: newUser });
+    const resp = await api.put(`/alterar/${userId}`, newUser);
     return resp.data;
   }
 

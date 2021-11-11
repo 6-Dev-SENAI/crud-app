@@ -24,11 +24,13 @@ const Deletar = () => {
   const [name, setName] = useState(user.name);
   const [age, setAge] = useState(user.age);
   const [sex, setSex] = useState(user.sex);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
 
   const deleteUser = async () => {
     try {
       const resp = await api.deleteUser(userId);
-      navigation("/");
+      navigation("/consultar");
       toast.success("Usuário deletado com sucesso!");
       return resp;
     } catch (error) {
@@ -62,7 +64,7 @@ const Deletar = () => {
   };
 
   const cancel = () => {
-    navigation("/");
+    navigation("/consultar");
   };
 
   return (
@@ -79,6 +81,8 @@ const Deletar = () => {
           name={{ name, setName }}
           age={{ age, setAge }}
           sex={{ sex, setSex }}
+          email={{ email, setEmail }}
+          password={{ password, setPassword }}
           disable={true}
           label={"Deletar"}
         />

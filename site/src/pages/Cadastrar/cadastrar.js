@@ -16,6 +16,8 @@ const Cadastrar = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [sex, setSex] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const createUser = async () => {
     try {
@@ -23,9 +25,11 @@ const Cadastrar = () => {
         name,
         age,
         sex,
+        email,
+        password
       };
       const resp = await api.createUser(user);
-      navigation("/");
+      navigation("/consultar");
       toast.success("Usuário cadastrado com sucesso!");
       return resp;
     } catch (error) {
@@ -39,7 +43,7 @@ const Cadastrar = () => {
   };
 
   const cancel = () => {
-    navigation("/");
+    navigation("/consultar");
   };
 
   return (
@@ -56,6 +60,8 @@ const Cadastrar = () => {
           name={{ name, setName }}
           age={{ age, setAge }}
           sex={{ sex, setSex }}
+          email={{ email, setEmail }}
+          password={{ password, setPassword }}
           disable={false}
           label={"Salvar"}
         />

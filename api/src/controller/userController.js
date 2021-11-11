@@ -36,7 +36,7 @@ router.post("/cadastrar", async (req, resp) => {
 
     userTable = await srv.createUser(userTable);
 
-    if (!user || !mongoose.isValidObjectId(userTable._id))
+    if (!userTable || !mongoose.isValidObjectId(userTable._id))
       resp
         .status(404)
         .send(new Error(404, "Ocorreu um erro ao tentar criar usuário."));
@@ -57,7 +57,7 @@ router.put("/alterar/:id", async (req, resp) => {
 
     let oldUser = await srv.consultUserById(userId);
 
-    if (!user || !mongoose.isValidObjectId(oldUser._id))
+    if (!oldUser || !mongoose.isValidObjectId(oldUser._id))
       resp
         .status(404)
         .send(new Error(404, `Usuário não cadastrado no sistema.`));

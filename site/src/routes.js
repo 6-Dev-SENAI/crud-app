@@ -7,12 +7,14 @@ import Home from "./pages/Home/home.js";
 import Cadastrar from "./pages/Cadastrar/cadastrar.js";
 import Alterar from "./pages/Alterar/alterar.js";
 import Deletar from "./pages/Delete/delete.js";
+import Logar from "./pages/Logar/login.js";
 
 export default function Rotas() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Logar />} />
+        <Route path="/consultar" element={<Home />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/alterar/:id" element={<Alterar />} />
         <Route path="/deletar/:id" element={<Deletar />} />

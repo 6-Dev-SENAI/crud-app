@@ -14,16 +14,18 @@ const Conteudo = (props) => {
             <th scope="col">Nome</th>
             <th scope="col">Idade</th>
             <th scope="col">Sexo</th>
+            <th scope="col">Email</th>
             <th scope="col">Opções</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
             <tr key={index}>
-              <td># {user.id}</td>
+              <td># {index + 1}</td>
               <td>{user.name}</td>
               <td>{user.age}</td>
               <td>{user.sex === "M" ? "Masculino" : "Feminino"}</td>
+              <td>{user.email}</td>
               <td>
                 <Link
                   to={`/alterar/${user.id}`}

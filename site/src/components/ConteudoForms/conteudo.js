@@ -9,6 +9,8 @@ const ConteudoPagina = (props) => {
     name: { name, setName },
     age: { age, setAge },
     sex: { sex, setSex },
+    email: { email, setEmail },
+    password: { password, setPassword },
     disable,
     label,
   } = props;
@@ -22,10 +24,32 @@ const ConteudoPagina = (props) => {
               type="text"
               name="nome"
               class="form-control"
-              placeholder=" Insira o nome do novo usuário:"
+              placeholder="Insira o nome do novo usuário:"
               value={name}
               disabled={disable}
               onChange={(event) => setName(event.target.value)}
+            />
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              name="nome"
+              class="form-control"
+              placeholder="Insira o email do novo usuário:"
+              value={email}
+              disabled={disable}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="password"
+              name="nome"
+              class="form-control"
+              placeholder="Insira a senha pro novo usuário:"
+              value={password}
+              disabled={disable}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </div>
 

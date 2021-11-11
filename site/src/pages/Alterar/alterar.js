@@ -22,6 +22,8 @@ const PgAlterar = () => {
   const [name, setName] = useState(user.name);
   const [age, setAge] = useState(user.age);
   const [sex, setSex] = useState(user.sex);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
 
   const updateUser = async () => {
     try {
@@ -29,9 +31,11 @@ const PgAlterar = () => {
         name,
         age,
         sex,
+        email,
+        password
       };
       const resp = await api.alterUser(userId, user);
-      navigation("/");
+      navigation("/consultar");
       toast.success("Usuário alterado com sucesso!");
       return resp;
     } catch (error) {
@@ -45,7 +49,7 @@ const PgAlterar = () => {
   };
 
   const cancel = () => {
-    navigation("/");
+    navigation("/consultar");
   };
 
   return (
@@ -63,6 +67,8 @@ const PgAlterar = () => {
           name={{ name, setName }}
           age={{ age, setAge }}
           sex={{ sex, setSex }}
+          email={{ email, setEmail }}
+          password={{ password, setPassword }}
           disable={false}
           label={"Salvar alterações"}
         />

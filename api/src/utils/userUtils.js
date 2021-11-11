@@ -12,7 +12,8 @@ export default class UserUtils {
       tableUser.nm_usuario,
       tableUser.nr_idade,
       tableUser.ds_sexo,
-      tableUser.ds_login
+      tableUser.ds_login,
+      tableUser.ds_senha
     );
     return user;
   }
