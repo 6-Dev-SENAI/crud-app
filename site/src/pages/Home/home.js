@@ -22,7 +22,8 @@ const Home = () => {
     try {
       const resp = await api.listUsers(name, token);
       const { users } = resp;
-      setUsers([...users]);
+      const usersResp = users.filter((user) => !user.admin);
+      setUsers([...usersResp]);
     } catch (error) {
       setUsers([]);
       let err;

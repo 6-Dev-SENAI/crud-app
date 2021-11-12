@@ -129,12 +129,19 @@ router.post("/login", async (req, resp) => {
 
     const user = await srv.login(email, password);
 
+    const adminId = new mongoose.mongo.ObjectId(process.env.ADMIN_ID);
+
     if (!user || !mongoose.isValidObjectId(user._id))
       resp.status(404).send(new Error(404, "Email ou senha incorretos."));
     else {
-      const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN, {
-        expiresIn: 120,
-      });
+      let token;
+      if (user._id.equals(adminId)) {
+        token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN);
+      } else {
+        token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN, {
+          expiresIn: 120,
+        });
+      }
 
       let userResp = utils.toResponse(user);
 

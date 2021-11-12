@@ -13,7 +13,8 @@ export default class UserUtils {
       tableUser.nr_idade,
       tableUser.ds_sexo,
       tableUser.ds_login,
-      tableUser.ds_senha
+      tableUser.ds_senha,
+      tableUser.bt_admin
     );
     return user;
   }
@@ -25,6 +26,7 @@ export default class UserUtils {
       ds_sexo: userReq.sex || "",
       ds_login: userReq.email || "",
       ds_senha: userReq.password || "",
+      bt_admin: userReq.admin || false,
     };
     return userTable;
   }
