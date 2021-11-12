@@ -5,16 +5,19 @@ import Rodape from "../../components/Rodape/index";
 import "../Home/home.css";
 import "../Alterar/alterar.css";
 import { toast } from "react-toastify";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Service from "../../service/userService.js";
 const api = new Service();
 
 const Cadastrar = () => {
-  const location = useLocation();
-  const { token } = location.state;
-
+  const token = sessionStorage.getItem("@crud/token");
   const navigation = useNavigate();
+
+  if (!token) {
+    navigation("/login");
+    toast.warning("Por favor, faça o login!");
+  }
 
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
@@ -32,7 +35,7 @@ const Cadastrar = () => {
         password,
       };
       const resp = await api.createUser(user, token);
-      navigation("/consultar", { state: { token } });
+      navigation("/consultar");
       toast.success("Usuário cadastrado com sucesso!");
       return resp;
     } catch (error) {
@@ -49,12 +52,12 @@ const Cadastrar = () => {
   };
 
   const cancel = () => {
-    navigation("/consultar", { state: { token } });
+    navigation("/consultar");
   };
 
   return (
     <div>
-      <Cabecalho>
+      <Cabecalho logout={true}>
         <p className="titulo text-uppercase">
           <ins>Cadastrar</ins>
         </p>

@@ -5,13 +5,12 @@ import "../Home/home.css";
 import Conteudo from "../../components/Centro/centro";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Service from "../../service/userService.js";
 const api = new Service();
 
 const Home = () => {
-  const location = useLocation();
-  const { token } = location.state;
+  const token = sessionStorage.getItem("@crud/token");
   const navigation = useNavigate();
 
   const [name, setName] = useState("");
@@ -44,7 +43,7 @@ const Home = () => {
 
   return (
     <div className="container-home">
-      <Cabecalho>
+      <Cabecalho logout={true}>
         <div class="input-group mb-3">
           <input
             type="text"
@@ -56,18 +55,14 @@ const Home = () => {
             onChange={(event) => setName(event.target.value)}
           />
           <div class="input-group-append">
-            <Link
-              to="/cadastrar"
-              state={{ token }}
-              class="btn btn-outline-warning .text-dark"
-            >
+            <Link to="/cadastrar" class="btn btn-outline-warning .text-dark">
               Cadastrar Usuário
             </Link>
           </div>
         </div>
       </Cabecalho>
 
-      <Conteudo users={users} token={token} />
+      <Conteudo users={users} />
 
       <div className="fotfot fixed-bottom">
         <Rodape />

@@ -14,12 +14,13 @@ export default function Rotas() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Logar />} />
+        <Route path="/login" element={<Logar />} />
         <Route path="/consultar" element={<Home />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/alterar/:id" element={<Alterar />} />
         <Route path="/deletar/:id" element={<Deletar />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer position="top-left" />
     </BrowserRouter>
   );
 }

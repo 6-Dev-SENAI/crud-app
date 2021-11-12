@@ -23,7 +23,8 @@ const Logar = () => {
         password,
       };
       const resp = await api.login(request);
-      navigation("/consultar", { state: resp });
+      sessionStorage.setItem("@crud/token", resp.token);
+      navigation("/consultar");
       toast.success(`Seja bem vindo ${resp.user.name}`);
     } catch (error) {
       let err;
@@ -37,7 +38,7 @@ const Logar = () => {
 
   return (
     <div>
-      <Cabecalho>
+      <Cabecalho logout={false}>
         {" "}
         <p className="titulo text-uppercase ">
           <ins>LOGIN</ins>

@@ -13,14 +13,24 @@ import Service from "../../service/userService";
 const api = new Service();
 
 const Deletar = () => {
+  const token = sessionStorage.getItem("@crud/token");
+  const navigation = useNavigate();
+
   const location = useLocation();
+  let state = location.state || {
+    user: { name: "", age: 0, sex: "", email: "", password: "" },
+  };
+
+  if (!token) {
+    state = { user: { name: "", age: 0, sex: "", email: "", password: "" } };
+    navigation("/login");
+    toast.warning("Por favor, faça o login!");
+  }
 
   const params = useParams();
   const userId = params.id;
 
-  const { user, token } = location.state;
-
-  const navigation = useNavigate();
+  const { user } = state;
 
   const [name, setName] = useState(user.name);
   const [age, setAge] = useState(user.age);
@@ -31,7 +41,7 @@ const Deletar = () => {
   const deleteUser = async () => {
     try {
       const resp = await api.deleteUser(userId, token);
-      navigation("/consultar", { state: { token } });
+      navigation("/consultar");
       toast.success("Usuário deletado com sucesso!");
       return resp;
     } catch (error) {
@@ -68,12 +78,12 @@ const Deletar = () => {
   };
 
   const cancel = () => {
-    navigation("/consultar", { state: { token } });
+    navigation("/consultar");
   };
 
   return (
     <div>
-      <Cabecalho>
+      <Cabecalho logout={true}>
         <p className="titulo text-uppercase">
           <ins>Deletar</ins>
         </p>

@@ -11,14 +11,24 @@ import Service from "../../service/userService";
 const api = new Service();
 
 const PgAlterar = () => {
-  const location = useLocation();
+  const token = sessionStorage.getItem("@crud/token");
+  const navigation = useNavigate();
 
-  const { user, token } = location.state;
+  const location = useLocation();
+  let state = location.state || {
+    user: { name: "", age: 0, sex: "", email: "", password: "" },
+  };
+
+  if (!token) {
+    state = { user: { name: "", age: 0, sex: "", email: "", password: "" } };
+    navigation("/login");
+    toast.warning("Por favor, faça o login!");
+  }
+
+  const { user } = state;
 
   const params = useParams();
   const userId = params.id;
-
-  const navigation = useNavigate();
 
   const [name, setName] = useState(user.name);
   const [age, setAge] = useState(user.age);
@@ -36,7 +46,7 @@ const PgAlterar = () => {
         password,
       };
       const resp = await api.alterUser(userId, user, token);
-      navigation("/consultar", { state: { token } });
+      navigation("/consultar");
       toast.success("Usuário alterado com sucesso!");
       return resp;
     } catch (error) {
@@ -53,12 +63,12 @@ const PgAlterar = () => {
   };
 
   const cancel = () => {
-    navigation("/consultar", { state: { token } });
+    navigation("/consultar");
   };
 
   return (
     <div>
-      <Cabecalho>
+      <Cabecalho logout={true}>
         <p className="titulo text-uppercase">
           <ins>Alterar</ins>
         </p>
