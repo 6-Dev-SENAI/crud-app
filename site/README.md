@@ -2,7 +2,7 @@
 
 # ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-# | Primeiro CRUD Full-Stack em MERN (MySQL, ExpressJs, ReactJs, NodeJs) -- FRONT |
+# | CRUD Full-Stack em MERN - Login c/ JWT (MongoDB, ExpressJs, ReactJs, NodeJs) -- FRONT |
 
 ## &#128421; Concluído &#128640;
 
